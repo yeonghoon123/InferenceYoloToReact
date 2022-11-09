@@ -11,3 +11,5 @@
     * Frontend : React
     * Backend : Express
     * Model : YOLOV5
+
+4. 버전 V0.1
