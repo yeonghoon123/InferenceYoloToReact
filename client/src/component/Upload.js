@@ -1,43 +1,50 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const UploadComp = () => {
+const UploadComp = ({props : {setSrcBase64Data, setUploadFileType}}) => {
     const [uploadData, setUploadData] = useState("");
+    const [test, setTest] = useState([]);
 
-    /** 이미지 파일 업로드 */
-    const fileImgUpload = (event) => {
-        const getImgs = event.target.files; // 사용자가 업로드한 사진
-        const uploadImgs = new FormData(); // 서버에 보낼 폼 생성
+    const encodeFileToBase64 = (fileBlob) => {
+        const fileReader = new FileReader();
+        fileReader.onload =  () => {
+            console.log(fileReader)
+            setSrcBase64Data((orginData) => {
+                return [...orginData, {base64URL : fileReader.result }];
+            });
+          };
 
-        // 파일을 생성한 폼에 추가
-        for(let cnt = 0; cnt < getImgs.length ; cnt++){
-            uploadImgs.append("imgFile", getImgs[cnt]);
-        }   
-
-        setUploadData(uploadImgs); // 업로드할 데이터 변경
+        fileReader.readAsDataURL(fileBlob);
+    
     }
 
-    /** 비디오 파일 업로드 */
-    const fileVideoUpload = (event) => {
-        const getVideo = event.target.files[0]; // 사용자가 업로드한 영상
-        const uploadVideo = new FormData(); // 서버에 보낼 폼 생성
-        uploadVideo.append("imgFile", getVideo);
+    /** 이미지/비디오 업로드 */
+    const fileUpload = (event, fileType) => {
+        const getFile = event.target.files; // 사용자가 업로드한 사진
+        const uploadFile = new FormData(); // 서버에 보낼 폼 생성
 
-        setUploadData(uploadVideo); // 업로드할 데이터 변경
+        // 파일을 생성한 폼에 추가
+        for(let cnt = 0; cnt < getFile.length ; cnt++){
+            uploadFile.append("uploadFile", getFile[cnt]);
+            encodeFileToBase64(getFile[cnt]);
+        }  
+
+        setUploadFileType(fileType)
+        setUploadData(uploadFile); // 업로드할 데이터 변경
     }
 
     /** 서버로 파일 전송 */
     const uploadServer = async () => {
         const response = await axios.post("http://localhost:8000/",uploadData,{headers: {
             'Content-Type': 'multipart/form-data'
-          }})
+          }}) 
         console.log(response)
     }
     return(
         <>
-            <input type="file" accept="image/jpeg" multiple={true} onChange={fileImgUpload}/>
-            <input type="file" accept="video/mp4, video/mkv" onChange={fileVideoUpload}/>
-            <button onClick={uploadServer}>hello world</button>
+            <input type="file" accept="image/jpeg" multiple={true} onChange={ (event) => fileUpload(event, "img")}/>
+            <input type="file" accept="video/mp4, video/mkv" onChange={(event) => fileUpload(event, "video")}/>
+            <button onClick={uploadServer}>Inference</button>
         </>
     )
 }
