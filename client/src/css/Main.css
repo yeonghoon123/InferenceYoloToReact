@@ -1,0 +1,49 @@
+/* main */
+.Main_container{
+    max-width: 1180px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    height: 100vh;
+    justify-content: center;
+}
+
+.Main_imgarea{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin: 30px auto 0;
+}
+
+
+/* Upload */
+.Upload_container{
+    display: flex;
+    margin: 0 auto;
+}
+
+/* ImgArea */
+.ImageArea_preview{
+    width: 40%;
+    margin-right: 100px;
+}
+
+.ImageArea_preview video{
+    width: 100%;
+}
+
+.ImageArea_preview img{
+    border: 1px solid #000;
+}
+
+.ImageArea_inference{
+    width: 40%;
+}
+
+.ImageArea_inference video{
+    width: 100%;
+}
+
+.ImageArea_preview img{
+    border: 1px solid #000;
+}
