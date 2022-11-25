@@ -4,14 +4,13 @@ import ImageArea from "./ImageArea";
 import "../css/Main.css";
 
 const Main = () => {
-    const [uploadImg, setUploadImg] = useState(false);
-    const [srcBase64Data, setSrcBase64Data] = useState([]);
+    const [srcBase64Data, setSrcBase64Data] = useState([]); // 업로드된 이미지의 base64
     return(
     <>
         <div className="Main_container">
-            <UploadComp props={ {setSrcBase64Data, setUploadImg} }/>
+            <UploadComp props={ {setSrcBase64Data} }/>
             <div className="Main_imgarea">
-                <ImageArea props={{uploadImg,srcBase64Data}}/>
+                <ImageArea props={{srcBase64Data}}/>
             </div>
         </div>
     </>

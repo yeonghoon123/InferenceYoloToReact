@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Carousel from "react-bootstrap/Carousel";
 
-const ImageArea = ({ props: { uploadImg, srcBase64Data } }) => {
-  const [previewTag, setPreviewTag] = useState();
-  const [inferenceTag, setInferenceTag] = useState();
+const ImageArea = ({ props: { srcBase64Data } }) => {
+  const [previewTag, setPreviewTag] = useState(); // 미리보기 이미지 태그
+  const [inferenceTag, setInferenceTag] = useState(); // inference한 이미지 태그
 
   const previewCreate = () => {
-    uploadImg ? (
+    !!srcBase64Data ? (
       setPreviewTag(
         <>
           <h4>Preview Image</h4>

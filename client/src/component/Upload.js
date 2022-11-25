@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { FileUploader } from "react-drag-drop-files";
 
-const UploadComp = ({ props: { setSrcBase64Data, setUploadImg } }) => {
+const UploadComp = ({ props: { setSrcBase64Data } }) => {
   const [uploadData, setUploadData] = useState(""); // 서버에 보낼 데이터
   const [inferenceModel, setInferenceModel] = useState(); // inference할 모델
   const modelList = ['model1','model2','model3']; // inference 가능 모델
@@ -35,8 +35,7 @@ const UploadComp = ({ props: { setSrcBase64Data, setUploadImg } }) => {
     }else{
         await encodeFileToBase64(files);
     }
-
-    setUploadImg(true)// 업로드 파일 타입
+    
     setUploadData(uploadFile); // 업로드할 데이터 변경
   };
 
