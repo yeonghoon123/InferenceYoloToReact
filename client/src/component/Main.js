@@ -4,14 +4,14 @@ import ImageArea from "./ImageArea";
 import "../css/Main.css";
 
 const Main = () => {
-    const [uploadFileType, setUploadFileType] = useState();
+    const [uploadImg, setUploadImg] = useState(false);
     const [srcBase64Data, setSrcBase64Data] = useState([]);
     return(
     <>
         <div className="Main_container">
-            <UploadComp props={ {setSrcBase64Data, setUploadFileType} }/>
+            <UploadComp props={ {setSrcBase64Data, setUploadImg} }/>
             <div className="Main_imgarea">
-                <ImageArea props={{uploadFileType,srcBase64Data}}/>
+                <ImageArea props={{uploadImg,srcBase64Data}}/>
             </div>
         </div>
     </>
