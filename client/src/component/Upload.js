@@ -4,7 +4,7 @@ import { FileUploader } from "react-drag-drop-files";
 
 const UploadComp = ({ props: { setSrcBase64Data } }) => {
   const [uploadData, setUploadData] = useState(""); // 서버에 보낼 데이터
-  const [inferenceModel, setInferenceModel] = useState(); // inference할 모델
+  const [inferenceModel, setInferenceModel] = useState(null); // inference할 모델
   const modelList = ['model1','model2','model3']; // inference 가능 모델
 
   /**  사용자가 업로드한 이미지/비디오를 base64로 변환 */
@@ -35,7 +35,7 @@ const UploadComp = ({ props: { setSrcBase64Data } }) => {
     }else{
         await encodeFileToBase64(files);
     }
-    
+
     setUploadData(uploadFile); // 업로드할 데이터 변경
   };
 
@@ -55,7 +55,8 @@ const UploadComp = ({ props: { setSrcBase64Data } }) => {
     <div className="Upload_container">
         <FileUploader handleChange={fileUpload} multiple={true} name="file" types={["JPG", "JPEG"]} />
       <select onChange={ (e) => setInferenceModel(e.target.value)}>
-        {modelList.map((modelValue) => <option value={modelValue}>{modelValue.toUpperCase()}</option>)}
+        <option disabled>-- Select Model --</option>
+        {modelList.map((modelValue) => <option value={modelValue} key={modelValue}>{modelValue.toUpperCase()}</option>)}
       </select>
       <button onClick={uploadServer}>Inference</button>
       </div>

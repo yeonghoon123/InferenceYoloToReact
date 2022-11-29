@@ -6,7 +6,7 @@ const ImageArea = ({ props: { srcBase64Data } }) => {
   const [inferenceTag, setInferenceTag] = useState(); // inference한 이미지 태그
 
   const previewCreate = () => {
-    !!srcBase64Data ? (
+    srcBase64Data.length !== 0 ? (
       setPreviewTag(
         <>
           <h4>Preview Image</h4>
