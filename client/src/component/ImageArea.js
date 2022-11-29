@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Carousel from "react-bootstrap/Carousel";
 
-const ImageArea = ({ props: { uploadFileType, srcBase64Data } }) => {
-  const [previewTag, setPreviewTag] = useState();
-  const [inferenceTag, setInferenceTag] = useState();
+const ImageArea = ({ props: { srcBase64Data } }) => {
+  const [previewTag, setPreviewTag] = useState(); // 미리보기 이미지 태그
+  const [inferenceTag, setInferenceTag] = useState(); // inference한 이미지 태그
 
   const previewCreate = () => {
-    uploadFileType === "img" ? (
+    srcBase64Data.length !== 0 ? (
       setPreviewTag(
         <>
-          <h4>Preview {uploadFileType}</h4>
+          <h4>Preview Image</h4>
           <Carousel variant="dark">
             {srcBase64Data.map((value, index) => (
               <Carousel.Item key={index}>
@@ -23,25 +23,11 @@ const ImageArea = ({ props: { uploadFileType, srcBase64Data } }) => {
           </Carousel>
         </>
       )
-    ) : uploadFileType === "video" ? (
-      setPreviewTag(
-        <>
-        <h4>Preview {uploadFileType}</h4>
-        <video
-          src={srcBase64Data.length !== 0 ? srcBase64Data[0].base64URL : ""}
-          autoPlay={false}
-          controls={true}
-        />
-        </>
-      )
-    ) : (
-      <></>
-    );
+    ) : <></>
   };
 
   useEffect(() => {
     previewCreate();
-    console.log(srcBase64Data);
   }, [srcBase64Data]);
   return (
     <>
