@@ -21,7 +21,7 @@ const UploadComp = ({ props: { setSrcBase64Data } }) => {
   };
 
 
-  /** 이미지/비디오 업로드 */
+  /** 이미지 업로드 */
   const fileUpload = async (files) => {
     const uploadFile = new FormData(); // 서버에 보낼 폼 생성
     setSrcBase64Data([]); // 미리보기 초기화

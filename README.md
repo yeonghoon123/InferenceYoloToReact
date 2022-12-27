@@ -12,4 +12,4 @@
     * Backend : Express
     * Model : YOLOV5
 
-4. 버전 V0.3
+4. 버전 V0.4
