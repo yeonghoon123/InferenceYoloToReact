@@ -10,7 +10,7 @@
 3. 사용 기술    
     * Frontend : React
     * Backend : Express
-    * Model : YOLOV5
+    * Model : efficientdet, maskrcnn, YOLOV5
 
 4. 버전 V0.3
 
