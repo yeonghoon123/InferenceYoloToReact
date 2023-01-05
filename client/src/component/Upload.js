@@ -24,6 +24,7 @@ const UploadComp = ({ props: { setSrcBase64Data } }) => {
   /** 이미지 업로드 */
   const fileUpload = async (files) => {
       const formData = new FormData(); // 서버에 보낼 폼 생성
+      setUploadData(""); // 업로드 데이터 초기화
       setSrcBase64Data([]); // 미리보기 초기화
 
       if(files.length > 0){
@@ -44,7 +45,7 @@ const UploadComp = ({ props: { setSrcBase64Data } }) => {
   /** 서버로 파일 전송 */
   const uploadServer = async () => {
     if(uploadData !== "" && inferenceModel !== null){
-      uploadData.append("modelKind", inferenceModel);
+      uploadData.set("modelKind", inferenceModel);
 
       const response = await axios.post("http://localhost:8000/", uploadData, {
         headers: {
@@ -62,7 +63,7 @@ const UploadComp = ({ props: { setSrcBase64Data } }) => {
     <div className="Upload_container">
         <FileUploader handleChange={fileUpload} multiple={true} name="file" types={["JPG", "JPEG"]}/>
       <select onChange={ (e) => setInferenceModel(e.target.value)} style={{margin : "0 10px"}}>
-        <option disabled selected value={null}>-- Select Model --</option>
+        <option disabled selected defaultValue={null}>-- Select Model --</option>
         {modelList.map((modelValue) => <option value={modelValue} key={modelValue}>{modelValue.toUpperCase()}</option>)}
       </select>
       <button onClick={uploadServer}>Inference</button>

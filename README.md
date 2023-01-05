@@ -21,8 +21,16 @@
     - yolov5 : detect.py
 
 2. 모델별 가상환경
-    - efficientdet python=3.7
-        - 추가 설치 : pip install torch==1.12.0+cu116 torchvision==0.13.0+cu116 torchaudio==0.12.0+cu116 --extra-index-url https://download.pytorch.org/whl/cu116
-    - maskrcnn python=3.7 
-    - yolov5 python=3.8 
-
+    - efficientdet
+        - conda create -n efficientdet_PBL python=3.7
+        - conda activate efficientdet_PBL
+        - pip install -r efficientdet__requirements.txt
+        - pip install torch==1.12.0+cu116 torchvision==0.13.0+cu116 torchaudio==0.12.0+cu116 --extra-index-url https://download.pytorch.org/whl/cu116
+    - maskrcnn
+        - conda create -n maskrcnn_PBL python=3.7
+        - conda activate maskrcnn_PBL
+        - pip install -r maskrcnn_requirements.txt
+    - yolov5
+        - conda create -n yolov5_PBL python=3.8
+        - conda activate yolov5_PBL
+        - pip install -r yolov5_requirements.txt
