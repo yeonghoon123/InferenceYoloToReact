@@ -1,23 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="602191b3-5a18-46b4-9fc6-089a111078df" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/model.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/yolov5/data/images/01.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/yolov5/data/images/02.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/yolov5/data/images/03.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/yolov5/data/images/04.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/yolov5/data/images/05.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yolov5/data/images/NY.mkv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/yolov5/runs/detect/exp3/NY.mkv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/yolov5/runs/detect/exp4/NY.mkv" beforeDir="false" />
-    </list>
+    <list default="true" id="602191b3-5a18-46b4-9fc6-089a111078df" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
