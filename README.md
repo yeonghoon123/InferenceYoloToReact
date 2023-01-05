@@ -25,4 +25,4 @@
         - 추가 설치 : pip install torch==1.12.0+cu116 torchvision==0.13.0+cu116 torchaudio==0.12.0+cu116 --extra-index-url https://download.pytorch.org/whl/cu116
     - maskrcnn python=3.7 
     - yolov5 python=3.8 
->>>>>>> 6e9308cd009c1ee389e072233c7e06f7e64d8552
+
