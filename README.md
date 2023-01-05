@@ -24,8 +24,8 @@
     - efficientdet
         - conda create -n efficientdet_PBL python=3.7
         - conda activate efficientdet_PBL
-        - pip install -r efficientdet__requirements.txt
         - pip install torch==1.12.0+cu116 torchvision==0.13.0+cu116 torchaudio==0.12.0+cu116 --extra-index-url https://download.pytorch.org/whl/cu116
+        - pip install -r efficientdet__requirements.txt
     - maskrcnn
         - conda create -n maskrcnn_PBL python=3.7
         - conda activate maskrcnn_PBL
