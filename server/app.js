@@ -15,6 +15,7 @@ app.get('/',(req,res) => {
 })
 
 app.post('/', upload.any(), (req,res) => {
+    console.log(req.body.modelKind);
     console.log(req.files);
     res.send("hello");
 })

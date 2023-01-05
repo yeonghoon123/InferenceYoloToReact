@@ -12,7 +12,7 @@
     * Backend : Express
     * Model : efficientdet, maskrcnn, YOLOV5
 
-4. 버전 V0.4
+4. 버전 V0.41
 
 --------------------------------------------------------
 1. 모델별 inference 코드 파일명
