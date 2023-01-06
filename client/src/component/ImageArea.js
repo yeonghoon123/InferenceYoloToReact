@@ -11,7 +11,7 @@ const ImageArea = ({ props: { srcBase64Data, loading, inferenceBase64Data } }) =
     srcBase64Data.length !== 0 ? (
       setPreviewTag(
         <>
-          <h4>Inference Image</h4>
+          <h4>Preview Image</h4>
           <Carousel variant="dark" interval={null}>
             {srcBase64Data.map((value, index) => (
               <Carousel.Item key={index}>
@@ -33,7 +33,7 @@ const ImageArea = ({ props: { srcBase64Data, loading, inferenceBase64Data } }) =
     inferenceBase64Data.length !== 0 ? (
       setInferenceTag(
         <>
-          <h4>Preview Image</h4>
+          <h4>Inference Image</h4>
           <Carousel variant="dark" interval={null}>
             {inferenceBase64Data.map((value, index) => (
               <Carousel.Item key={index}>
