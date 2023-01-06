@@ -78,8 +78,7 @@ app.post("/", upload.any(), (req, res) => {
         `conda activate ${modelid} & python ${path}/model/${modelnm}/${py} --source ${source} --weights ${weights} --project ${project}`
     );
 
-    console.log("끝");
-    // res.send(fs.readFileSync(`${path}/server/${modelid}`));
+    res.send(fs.readdirSync(`${path}/server/inference/${modelnm}/`));
 });
 
 app.listen(port, () => console.log(`${port} connect complete`));
