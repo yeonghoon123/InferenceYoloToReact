@@ -17,15 +17,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", upload.any(), (req, res) => {
-    console.log(req.body.modelKind);
-    console.log(req.files);
-
     const path = "E:/InferenceYoloToReact";
-
-    if (fs.existsSync("./temp")) {
-        fs.rmdirSync("./temp", { recursive: true });
-    }
-    fs.mkdirSync("./temp");
 
     req.files.map((data) => {
         fs.writeFileSync(`./temp/${data.originalname}`, data.buffer);
@@ -34,11 +26,6 @@ app.post("/", upload.any(), (req, res) => {
     let modelid = { yolov5: "yolov5_PBL", efficientdet: "efficientdet_PBL", maskrcnn: "maskrcnn_PBL" };
     modelid = modelid[req.body.modelKind];
     const modelnm = req.body.modelKind;
-
-    if (fs.existsSync(`${path}/server/inference/${modelnm}`)) {
-        fs.rmdirSync(`${path}/server/inference/${modelnm}`, { recursive: true });
-    }
-    fs.mkdirSync(`${path}/server/inference/${modelnm}`);
 
     let py = "";
     let source = "";
@@ -78,10 +65,22 @@ app.post("/", upload.any(), (req, res) => {
         `conda activate ${modelid} & python ${path}/model/${modelnm}/${py} --source ${source} --weights ${weights} --project ${project}`
     );
 
+    console.log("추론 끝");
+
     let resImg = fs.readdirSync(`${path}/server/inference/${modelnm}/`).map((data) => {
         let result = fs.readFileSync(`${path}/server/inference/${modelnm}/${data}`);
         return result.toString("base64");
     });
+
+    if (fs.existsSync("./temp")) {
+        fs.rmdirSync("./temp", { recursive: true });
+    }
+    fs.mkdirSync("./temp");
+
+    if (fs.existsSync(`${path}/server/inference/${modelnm}`)) {
+        fs.rmdirSync(`${path}/server/inference/${modelnm}`, { recursive: true });
+    }
+    fs.mkdirSync(`${path}/server/inference/${modelnm}`);
 
     res.send(resImg);
 });
