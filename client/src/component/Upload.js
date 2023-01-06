@@ -75,11 +75,6 @@ const UploadComp = ({ props: { setSrcBase64Data } }) => {
                 </select>
                 <button onClick={uploadServer}>Inference</button>
             </div>
-            <div>
-                {resultImg?.map((img) => {
-                    return <img src={img} />;
-                })}
-            </div>
         </>
     );
 };
