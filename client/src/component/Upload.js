@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { FileUploader } from "react-drag-drop-files";
 
-const UploadComp = ({ props: { setSrcBase64Data } }) => {
+const UploadComp = ({ props: { setSrcBase64Data, setLoading, setInferenceBase64Data } }) => {
     const [uploadData, setUploadData] = useState(""); // 서버에 보낼 데이터
     const [inferenceModel, setInferenceModel] = useState(null); // inference할 모델
     const modelList = ["yolov5", "efficientdet", "maskrcnn"]; // inference 가능 모델
@@ -42,17 +42,21 @@ const UploadComp = ({ props: { setSrcBase64Data } }) => {
     /** 서버로 파일 전송 */
     const uploadServer = async () => {
         if (uploadData !== "" && inferenceModel !== null) {
+            setLoading(true);
+            setInferenceBase64Data([]);
             uploadData.set("modelKind", inferenceModel);
 
-            const response = await axios.post("http://localhost:8000/", uploadData, {
+            const response = await axios.post("http://192.168.31.120:8000/", uploadData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
             });
 
             const responseData = await response.data;
-            responseData.map((val) => console.log("data:image/jpg;base64," + val));
-            console.log(responseData);
+            responseData.map(async (val) => {
+              setInferenceBase64Data((data) => [...data, {base64URL : 'data:image/jpg;base64,' + val}])
+            });
+            setLoading(false);
         } else {
             uploadData !== "" ? alert("Inference할 모델을 선택 하세요.") : alert("이미지를 업로드 하세요.");
         }
