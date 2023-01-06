@@ -67,7 +67,7 @@ const UploadComp = ({ props: { setSrcBase64Data, setLoading, setInferenceBase64D
     return (
         <>
             <div className="Upload_container">
-                <FileUploader handleChange={fileUpload} multiple={true} name="file" types={["JPG", "JPEG"]} />
+                <FileUploader handleChange={fileUpload} multiple={true} name="file" types={["JPG"]} />
                 <select onChange={(e) => setInferenceModel(e.target.value)} style={{ margin: "0 10px" }}>
                     <option disabled selected defaultValue={null}>
                         -- Select Model --
