@@ -40,33 +40,46 @@ app.post("/", upload.any(), (req, res) => {
     }
     fs.mkdirSync(`${path}/server/inference/${modelnm}`);
 
+    let py = "";
+    let source = "";
+    let weights = "";
+    let project = "";
+
     switch (req.body.modelKind) {
         case "yolov5":
             // yolov5 설정
-            execSync(
-                `conda activate ${modelid} & python ${path}/model/${modelnm}/detect.py --source ${path}/server/temp --weights ${path}/model/${modelnm}/${modelnm}s.pt --project ${path}/server/inference/${modelnm}`
-            );
+            py = "detect.py";
+            source = `${path}/server/temp`;
+            weights = `${path}/model/${modelnm}/${modelnm}s.pt`;
+            project = `${path}/server/inference/${modelnm}`;
             break;
 
         case "efficientdet":
             // efficientdet 설정
-            execSync(
-                `conda activate ${modelid} & python ${path}/model/${modelnm}/inference.py --source ${path}/server/temp --weights ${path}/model/${modelnm}/weights/${modelnm}-d0.pth --project ${path}/server/inference/${modelnm}`
-            );
+            py = "inference.py";
+            source = `${path}/server/temp`;
+            weights = `${path}/model/${modelnm}/weights/${modelnm}-d0.pth`;
+            project = `${path}/server/inference/${modelnm}`;
             break;
 
         case "maskrcnn":
             // maskrcnn 설정
-            execSync(
-                `conda activate ${modelid} & python ${path}/model/${modelnm}/inference.py --source ${path}/server/temp --project ${path}/server/inference/${modelnm}`
-            );
+            py = "inference.py";
+            source = `${path}/server/temp`;
+            weights = `COCO-InstanceSegmentation/mask_rcnn_X_101_32x8d_FPN_3x.yaml`;
+            project = `${path}/server/inference/${modelnm}`;
             break;
 
         default:
             break;
     }
 
+    execSync(
+        `conda activate ${modelid} & python ${path}/model/${modelnm}/${py} --source ${source} --weights ${weights} --project ${project}`
+    );
+
     console.log("끝");
+    // res.send(fs.readFileSync(`${path}/server/${modelid}`));
 });
 
 app.listen(port, () => console.log(`${port} connect complete`));
