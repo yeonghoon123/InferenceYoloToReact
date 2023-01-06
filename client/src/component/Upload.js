@@ -47,7 +47,7 @@ const UploadComp = ({ props: { setSrcBase64Data, setLoading, setInferenceBase64D
             setInferenceBase64Data([]);
             uploadData.set("modelKind", inferenceModel);
 
-            const response = await axios.post("http://192.168.31.120:8000/", uploadData, {
+            const response = await axios.post("https://ff5a-106-240-238-202.jp.ngrok.io/", uploadData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
