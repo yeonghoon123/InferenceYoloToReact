@@ -55,6 +55,7 @@ const ImageArea = ({ props: { srcBase64Data, loading, inferenceBase64Data } }) =
   }, [srcBase64Data]);
 
   useEffect(() => {
+    setInferenceTag();
     inferenceCreate();
   }, [inferenceBase64Data]);
   return (
