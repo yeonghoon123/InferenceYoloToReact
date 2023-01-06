@@ -78,8 +78,12 @@ app.post("/", upload.any(), (req, res) => {
         `conda activate ${modelid} & python ${path}/model/${modelnm}/${py} --source ${source} --weights ${weights} --project ${project}`
     );
 
-    console.log("끝");
-    // res.send(fs.readFileSync(`${path}/server/${modelid}`));
+    let resImg = fs.readdirSync(`${path}/server/inference/${modelnm}/`).map((data) => {
+        let result = fs.readFileSync(`${path}/server/inference/${modelnm}/${data}`);
+        return result.toString("base64");
+    });
+
+    res.send(resImg);
 });
 
 app.listen(port, () => console.log(`${port} connect complete`));

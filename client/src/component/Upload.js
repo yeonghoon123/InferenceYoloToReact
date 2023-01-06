@@ -49,6 +49,10 @@ const UploadComp = ({ props: { setSrcBase64Data } }) => {
                     "Content-Type": "multipart/form-data",
                 },
             });
+
+            const responseData = await response.data;
+            responseData.map((val) => console.log("data:image/jpg;base64," + val));
+            console.log(responseData);
         } else {
             uploadData !== "" ? alert("Inference할 모델을 선택 하세요.") : alert("이미지를 업로드 하세요.");
         }
