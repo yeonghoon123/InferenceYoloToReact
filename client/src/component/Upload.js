@@ -39,6 +39,7 @@ const UploadComp = ({ props: { setSrcBase64Data, setLoading, setInferenceBase64D
         setUploadData(formData); // 업로드할 데이터 변경
     };
 
+    const [resultImg, setResultImg] = useState([]);
     /** 서버로 파일 전송 */
     const uploadServer = async () => {
         if (uploadData !== "" && inferenceModel !== null) {
@@ -53,14 +54,18 @@ const UploadComp = ({ props: { setSrcBase64Data, setLoading, setInferenceBase64D
             });
 
             const responseData = await response.data;
+
             responseData.map(async (val) => {
               setInferenceBase64Data((data) => [...data, {base64URL : 'data:image/jpg;base64,' + val}])
             });
             setLoading(false);
+
+            setResultImg(responseData.map((val) => `data:image/jpg;base64,${val}`));
         } else {
             uploadData !== "" ? alert("Inference할 모델을 선택 하세요.") : alert("이미지를 업로드 하세요.");
         }
     };
+    console.log(resultImg);
 
     return (
         <>
@@ -77,6 +82,11 @@ const UploadComp = ({ props: { setSrcBase64Data, setLoading, setInferenceBase64D
                     ))}
                 </select>
                 <button onClick={uploadServer}>Inference</button>
+            </div>
+            <div>
+                {resultImg?.map((img) => {
+                    return <img src={img} />;
+                })}
             </div>
         </>
     );
