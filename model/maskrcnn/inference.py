@@ -1,7 +1,7 @@
 # Some basic setup:
 # Setup detectron2 logger
 import glob
-
+import argparse
 import torch
 from PIL import Image
 
@@ -27,8 +27,14 @@ torch.backends.cuda.matmul.allow_tf32 = False
 # The flag below controls whether to allow TF32 on cuDNN. This flag defaults to True.
 torch.backends.cudnn.allow_tf32 = False
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--weights', type=str, default='COCO-InstanceSegmentation/mask_rcnn_X_101_32x8d_FPN_3x.yaml', help='model.pt path(s)')
+parser.add_argument('--source', type=str, default='data/Object Detection/COCO/val2017', help='source')  # file/folder, 0 for webcam
+parser.add_argument('--project', default='test', help='save results to project/name')
+opt = parser.parse_args()
+
 # Load Dataset
-data_path = "data/Object Detection/COCO/val2017"
+data_path = opt.source
 test_dataset = sorted(glob.glob(os.path.join(data_path, '*.jpg')))
 print("Dataset Size : ", len(test_dataset))
 
@@ -36,7 +42,7 @@ print("Dataset Size : ", len(test_dataset))
 # cv2.imshow('input',img)
 #cv2.waitKey(0)
 
-model_name = "COCO-InstanceSegmentation/mask_rcnn_X_101_32x8d_FPN_3x.yaml"
+model_name = opt.weights
 cfg = get_cfg()
 # add project-specific config (e.g., TensorMask) here if you're not running a model in detectron2's core library
 cfg.merge_from_file(model_zoo.get_config_file(model_name))
@@ -65,5 +71,5 @@ for i, fn_path in enumerate(test_dataset):
     v = Visualizer(img[:, :, ::-1], MetadataCatalog.get(cfg.DATASETS.TRAIN[0]), scale=1.5)
     out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
     # cv2.imshow('output',out.get_image()[:, :, ::-1])
-    cv2.imwrite(f'test/{img_name}', out.get_image())
+    cv2.imwrite(f'{opt.project}/{img_name}', out.get_image())
     cv2.waitKey(0)

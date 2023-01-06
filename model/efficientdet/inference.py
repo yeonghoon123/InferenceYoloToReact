@@ -3,6 +3,7 @@
 """
 Simple Inference Script of EfficientDet-Pytorch
 """
+import argparse
 import glob
 import os
 import time
@@ -38,11 +39,16 @@ def display(preds, imgs, num, fn_path, imshow=True, imwrite=False):
             cv2.waitKey(0)
 
         if imwrite:
-            cv2.imwrite(f'test/{img_name}', imgs[i])
+            cv2.imwrite(f'{opt.project}/{img_name}', imgs[i])
 
-if __name__ == "__main__":
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--weights', type=str, default='weights/efficientdet-d0.pth', help='model.pt path(s)')
+    parser.add_argument('--source', type=str, default='data/Object Detection/COCO/val2017', help='source')  # file/folder, 0 for webcam
+    parser.add_argument('--project', default='test', help='save results to project/name')
+    opt = parser.parse_args()
 
-    data_path = "data/Object Detection/COCO/val2017"
+    data_path = opt.source
     test_dataset = sorted(glob.glob(os.path.join(data_path, '*.jpg')))
     print("Dataset Size : ", len(test_dataset))
 
@@ -78,10 +84,10 @@ if __name__ == "__main__":
     # tf bilinear interpolation is different from any other's, just make do
     input_sizes = [512, 640, 768, 896, 1024, 1280, 1280, 1536, 1536]
     input_size = input_sizes[compound_coef] if force_input_size is None else force_input_size
-
     model = EfficientDetBackbone(compound_coef=compound_coef, num_classes=len(obj_list),
                                  ratios=anchor_ratios, scales=anchor_scales)
-    model.load_state_dict(torch.load(f'weights/efficientdet-d{compound_coef}.pth', map_location='cpu'))
+    
+    model.load_state_dict(torch.load(opt.weights, map_location='cpu'))
     model.requires_grad_(False)
     model.eval()
 
